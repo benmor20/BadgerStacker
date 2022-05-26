@@ -37,3 +37,9 @@ class BadgerStackerView(PygameView):
     def draw_on_screen(self):
         self.screen.fill(constants.GRASS)
         self._game.all_sprites.draw(self.screen)
+
+        if not self._game.running:
+            score = constants.SCORE_FONT.render(f'Score is {self._game.score}', True, constants.TEXT)
+            self.screen.blit(score, score.get_rect(center=constants.SCORE_CENTER))
+            self.screen.blit(constants.REPLAY, constants.REPLAY.get_rect(center=constants.REPLAY_CENTER))
+            self.screen.blit(constants.QUIT, constants.QUIT.get_rect(center=constants.QUIT_CENTER))

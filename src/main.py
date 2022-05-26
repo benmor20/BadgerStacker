@@ -24,13 +24,9 @@ def main():
         game.update()
         view.draw()
 
-        if not game.running:
-            break
+        if game.exit_requested:
+            exited = True
 
-        clock.tick(constants.FPS)
-
-    for _ in range(constants.FPS * 5):
-        view.draw()
         clock.tick(constants.FPS)
 
 

@@ -1,6 +1,8 @@
 
 
 # View
+import pygame.font
+
 SCREEN_WIDTH = 800
 SCREEN_HEIGHT = 600
 SCREEN_SIZE = (SCREEN_WIDTH, SCREEN_HEIGHT)
@@ -22,3 +24,14 @@ SAR_CENTER = (SCREEN_WIDTH - 100, SCREEN_HEIGHT // 2)
 
 # Colors
 GRASS = (0, 150, 0)
+TEXT = (0, 50, 0)
+
+# Text
+pygame.font.init()
+SCORE_FONT = pygame.font.SysFont('sans-serif', 72)
+BUTTON_FONT = pygame.font.SysFont('sans-serif', 36)
+SCORE_CENTER = (SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2)
+REPLAY_CENTER = (SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2 + 50)
+QUIT_CENTER = (SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2 + 100)
+REPLAY = BUTTON_FONT.render('REPLAY', True, TEXT)
+QUIT = BUTTON_FONT.render('QUIT', True, TEXT)

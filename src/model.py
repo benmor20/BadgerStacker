@@ -52,17 +52,30 @@ class Game:
         self.sar = Player(self)
         self.all_sprites.add(self.sar)
 
+        self.last_badger = None
+        self.score = 0
+
+        self.running = True
+        self.exit_requested = False
+
+        self.reset()
+
+    @property
+    def num_badgers(self):
+        return len(self.badgers)
+
+    def reset(self):
+        for s in self.all_sprites:
+            if isinstance(s, Player):
+                continue
+            s.kill()
         self.last_badger = Badger(self, constants.SCREEN_WIDTH - 150)
         self.last_badger.stop()
         self.badgers.add(self.last_badger)
         self.all_sprites.add(self.last_badger)
         self.create_badger()
-
         self.running = True
-
-    @property
-    def num_badgers(self):
-        return len(self.badgers)
+        self.score = 0
 
     def create_badger(self):
         new_xpos = self.last_badger.rect.centerx + self.last_badger.rect.width
@@ -74,13 +87,14 @@ class Game:
     def lightning_bolt(self):
         lightning = Lightning(self, self.sar.rect.left)
         self.all_sprites.add(lightning)
-        score = sum(1 for b in self.badgers if lightning.rect.colliderect(b.rect))
-        print(f'You hit {score} badgers')
+        self.score = sum(1 for b in self.badgers if lightning.rect.colliderect(b.rect))
+        print(f'You hit {self.score} badgers')
 
     def update(self):
-        for badger in self.badgers:
-            badger.update()
+        if self.running:
+            for badger in self.badgers:
+                badger.update()
 
-        if self.num_badgers >= 10:
-            self.running = False
-            self.lightning_bolt()
+            if self.num_badgers >= 10:
+                self.running = False
+                self.lightning_bolt()
